@@ -37,6 +37,7 @@ namespace ELRDServerAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
+            SeedData();
             var user = await _db.Users.FirstOrDefaultAsync(x => x.Username == model.Username);
             if(user != null && user.Password == model.Password)
             {
@@ -108,6 +109,38 @@ namespace ELRDServerAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+
+        private void SeedData()
+        {
+
+            try
+            {
+
+                //If no user is in DB, add Admin user
+                if (_db.Users.Count() == 0)
+                {
+                    _logger.LogInformation("No data found, update database first...");
+                    _db.Database.Migrate();
+
+                    _logger.LogInformation("No user in Database found, adding Admin-User with standard credentials.");
+                    _db.Users.Add(new ELRDDataAccessLibrary.Models.User
+                    {
+                        Firstname = "Administrator",
+                        Lastname = "Administrator",
+                        Username = "admin",
+                        Password = "admin"
+                    });
+                    _db.SaveChanges();
+                    _logger.LogInformation("Admin user created.");
+
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+            }
         }
     }
 }
