@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 
 
-namespace ELRDServerAPI.Helpers
+namespace ELRDServerAPI.Options
 {
     public class JwtTokenConfig
     {

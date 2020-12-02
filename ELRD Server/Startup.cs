@@ -1,6 +1,6 @@
 using ELRDDataAccessLibrary.DataAccess;
 using ELRDServerAPI.Authentication;
-using ELRDServerAPI.Helpers;
+using ELRDServerAPI.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -73,9 +73,10 @@ namespace ELRDServerAPI
 
             //Adding the API Controller
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ELRD_Server", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ELRD Server API", Version = "v1" });
             });
 
         }
@@ -86,9 +87,24 @@ namespace ELRDServerAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ELRD_Server v1"));
+                
             }
+
+            var swaggerOptions = new SwaggerOptions();
+            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
+
+            app.UseSwagger(option =>
+            {
+                option.RouteTemplate = swaggerOptions.JsonRoute;
+            });
+
+            app.UseSwaggerUI(option =>
+            {
+                option.SwaggerEndpoint(swaggerOptions.UIEndpoint, swaggerOptions.Description);
+            });
+
+            //app.UseSwagger();
+            //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ELRD_Server v1"));
 
             app.UseHttpsRedirection();
 
