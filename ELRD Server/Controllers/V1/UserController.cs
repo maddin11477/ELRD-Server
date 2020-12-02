@@ -1,5 +1,6 @@
 ﻿using ELRDDataAccessLibrary.DataAccess;
 using ELRDServerAPI.Authentication;
+using ELRDServerAPI.Contracts.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace ELRDServerAPI.Controllers
+namespace ELRDServerAPI.Controllers.V1
 {
     [Authorize]
-    [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -34,7 +34,7 @@ namespace ELRDServerAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("login")]
+        [HttpPost(ApiRoutes.Users.Login)]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             SeedData();
@@ -79,36 +79,11 @@ namespace ELRDServerAPI.Controllers
 
         // GET: api/<UserController>
         
-        [HttpGet]
+        [HttpGet(ApiRoutes.Users.GetAll)]
         public IActionResult Get()
         {
             _logger.LogInformation("GET Request");
             return Ok(_db.Users);
-        }
-
-        // GET api/<UserController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<UserController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
 
 
