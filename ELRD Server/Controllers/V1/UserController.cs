@@ -38,6 +38,7 @@ namespace ELRDServerAPI.Controllers.V1
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             SeedData();
+            _logger.LogInformation(String.Format("Username {0} is trying to login.", model.Username));
             var user = await _db.Users.FirstOrDefaultAsync(x => x.Username == model.Username);
             if(user != null && user.Password == model.Password)
             {
