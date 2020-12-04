@@ -10,11 +10,15 @@ Alle APIs sind mit Swagger dokumentiert.
 
 ### User
 ##### [POST]
-  - api/User/Login 
+  - api/v1/User/Login (aktuell deaktiviert)
     - Meldet den Benutzer an
     - Benötigt username und password
     - Liefert ein JWT Token zurück
+  - api/v1/users
+    - Legt neuen Nutzer in der Datenbank an
 
 #### [GET]  
-  - api/User
+  - api/v1/users
     - Liefert alle Nutzer der Datenbank zurück
+  - api/v1/users/{userID}
+    - Liefert einen Nutzer mit der 'userID' zurück

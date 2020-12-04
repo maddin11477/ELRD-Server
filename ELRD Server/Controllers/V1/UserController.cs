@@ -95,10 +95,10 @@ namespace ELRDServerAPI.Controllers.V1
 
         // GET: UserByID
         [HttpGet(ApiRoutes.Users.Get)]
-        public IActionResult Get([FromRoute]int id)
+        public IActionResult Get([FromRoute]int userID)
         {
-            _logger.LogInformation(String.Format("GET Request for user ID: {0}", id));
-            User s = _userService.GetUserById(id);
+            _logger.LogInformation(String.Format("GET Request for user ID: {0}", userID));
+            User s = _userService.GetUserById(userID);
             if (s == null)
                 return NotFound();
 
