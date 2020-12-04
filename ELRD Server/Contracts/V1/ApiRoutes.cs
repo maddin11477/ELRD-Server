@@ -15,7 +15,12 @@ namespace ELRDServerAPI.Contracts.V1
         public static class Users
         {
             public const string Login = Base + "/login";
+
             public const string GetAll =Base + "/users";
+
+            public const string Get = Base + "/users/{userID}";
+
+            public const string Create = Base + "/users";
         }
     }
 }

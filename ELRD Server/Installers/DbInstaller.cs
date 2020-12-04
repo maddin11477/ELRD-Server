@@ -1,4 +1,5 @@
 ﻿using ELRDDataAccessLibrary.DataAccess;
+using ELRDServerAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,8 @@ namespace ELRDServerAPI.Installers
             {
                 options.UseSqlServer(configuration.GetConnectionString("Default"));
             });
+
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }
