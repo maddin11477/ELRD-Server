@@ -106,6 +106,19 @@ namespace ELRDServerAPI.Controllers.V1
             return Ok(s);
         }
 
+        // Delete: UserByID
+        [HttpDelete(ApiRoutes.Users.Delete)]
+        public IActionResult Delete([FromRoute] int userID)
+        {
+            _logger.LogInformation(String.Format("DELETE Request for user ID: {0}", userID));
+            var updated = _userService.DelteUser(userID);
+            if (updated)
+                return NoContent();
+
+            return NotFound();
+
+        }
+
         // PUT: UserByID
         [HttpPut(ApiRoutes.Users.Update)]
         public IActionResult Update([FromRoute] int userID, [FromBody] UpdateUserRequest request)

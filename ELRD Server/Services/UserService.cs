@@ -47,6 +47,19 @@ namespace ELRDServerAPI.Services
             return response;
         }
 
+        public bool DelteUser(int id)
+        {
+            var user = GetUserById(id);
+
+            if (user == null)
+                return false;
+
+            _db.Users.Remove(user);
+            _db.SaveChanges();
+
+            return true;
+        }
+
         public User GetUserById(int id)
         {
             return _db.Users.FirstOrDefault(x => x.Id == id);
