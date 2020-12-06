@@ -56,5 +56,20 @@ namespace ELRDServerAPI.Services
         {
             return _db.Users.ToList();
         }
+
+        public bool UpdateUser(User userToUpdate)
+        {
+            //var exists = GetUserById(userToUpdate.Id) != null;
+            var exists =  _db.Users.Any(c => c.Id == userToUpdate.Id);
+
+            if (!exists)
+                return false;
+
+            _db.Users.Update(userToUpdate);
+            _db.SaveChanges();
+
+            return true;
+
+        }
     }
 }

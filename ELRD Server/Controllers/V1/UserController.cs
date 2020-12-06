@@ -106,6 +106,28 @@ namespace ELRDServerAPI.Controllers.V1
             return Ok(s);
         }
 
+        // PUT: UserByID
+        [HttpPut(ApiRoutes.Users.Update)]
+        public IActionResult Update([FromRoute] int userID, [FromBody] UpdateUserRequest request)
+        {
+            User s = new User
+            {
+                Id = userID,
+                Firstname = request.Firstname,
+                Lastname = request.Lastname,
+                Username = request.Username,
+                Password = request.Password
+            };
+
+            _logger.LogInformation(String.Format("PUT Request for user ID: {0}", userID));
+            var updated = _userService.UpdateUser(s);
+            if (updated)
+                return Ok(s);
+
+            return NotFound();
+
+        }
+
         // POST: Create
         [HttpPost(ApiRoutes.Users.Create)]
         public IActionResult Create([FromBody] CreateUserRequest user)

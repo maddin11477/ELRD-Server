@@ -20,6 +20,10 @@ namespace ELRDServerAPI.Contracts.V1
 
             public const string Get = Base + "/users/{userID}";
 
+            public const string Update = Base + "/users/{userID}";
+
+            public const string Delete = Base + "/users/{userID}";
+
             public const string Create = Base + "/users";
         }
     }

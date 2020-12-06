@@ -12,5 +12,7 @@ namespace ELRDServerAPI.Services
         User GetUserById(int id);
 
         UserResponse AddNewUser(CreateUserRequest u);
+
+        bool UpdateUser(User userToUpdate);
     }
 }
