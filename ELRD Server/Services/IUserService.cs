@@ -2,19 +2,20 @@
 using ELRDServerAPI.Contracts.V1.Requests;
 using ELRDServerAPI.Contracts.V1.Responses;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ELRDServerAPI.Services
 {
     public interface IUserService
     {
-        List<User> GetUsers();
+        Task<List<User>> GetUsersAsync();
 
-        User GetUserById(int id);
+        Task<User> GetUserByIDAsync(int id);
 
-        UserResponse AddNewUser(CreateUserRequest u);
+        Task<UserResponse> AddNewUserAsync(CreateUserRequest u);
 
-        bool UpdateUser(User userToUpdate);
+        Task<bool> UpdateUserAsync(User userToUpdate);
 
-        bool DelteUser(int id);
+        Task<bool> DeleteUserAsync(int id);
     }
 }

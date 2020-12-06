@@ -87,18 +87,18 @@ namespace ELRDServerAPI.Controllers.V1
         // GET: api/<UserController>
         
         [HttpGet(ApiRoutes.Users.GetAll)]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
             _logger.LogInformation("GET Request");
-            return Ok(_userService.GetUsers());
+            return Ok(await _userService.GetUsersAsync());
         }
 
         // GET: UserByID
         [HttpGet(ApiRoutes.Users.Get)]
-        public IActionResult Get([FromRoute]int userID)
+        public async Task<IActionResult> Get([FromRoute]int userID)
         {
             _logger.LogInformation(String.Format("GET Request for user ID: {0}", userID));
-            User s = _userService.GetUserById(userID);
+            User s = await _userService.GetUserByIDAsync(userID);
             if (s == null)
                 return NotFound();
 
@@ -108,10 +108,10 @@ namespace ELRDServerAPI.Controllers.V1
 
         // Delete: UserByID
         [HttpDelete(ApiRoutes.Users.Delete)]
-        public IActionResult Delete([FromRoute] int userID)
+        public async Task<IActionResult> Delete([FromRoute] int userID)
         {
             _logger.LogInformation(String.Format("DELETE Request for user ID: {0}", userID));
-            var updated = _userService.DelteUser(userID);
+            var updated = await _userService.DeleteUserAsync(userID);
             if (updated)
                 return NoContent();
 
@@ -121,7 +121,7 @@ namespace ELRDServerAPI.Controllers.V1
 
         // PUT: UserByID
         [HttpPut(ApiRoutes.Users.Update)]
-        public IActionResult Update([FromRoute] int userID, [FromBody] UpdateUserRequest request)
+        public async Task<IActionResult> Update([FromRoute] int userID, [FromBody] UpdateUserRequest request)
         {
             User s = new User
             {
@@ -133,7 +133,7 @@ namespace ELRDServerAPI.Controllers.V1
             };
 
             _logger.LogInformation(String.Format("PUT Request for user ID: {0}", userID));
-            var updated = _userService.UpdateUser(s);
+            var updated = await _userService.UpdateUserAsync(s);
             if (updated)
                 return Ok(s);
 
@@ -143,7 +143,7 @@ namespace ELRDServerAPI.Controllers.V1
 
         // POST: Create
         [HttpPost(ApiRoutes.Users.Create)]
-        public IActionResult Create([FromBody] CreateUserRequest user)
+        public async Task<IActionResult> Create([FromBody] CreateUserRequest user)
         {
             if (user != null)
             {
@@ -151,7 +151,7 @@ namespace ELRDServerAPI.Controllers.V1
                 {
                     _logger.LogInformation("Trying to add new user: " + user.ToString());
 
-                    UserResponse response = _userService.AddNewUser(user);
+                    UserResponse response = await _userService.AddNewUserAsync(user);
 
                     //header location information
                     var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";

@@ -2,6 +2,7 @@
 using ELRDDataAccessLibrary.Models;
 using ELRDServerAPI.Contracts.V1.Requests;
 using ELRDServerAPI.Contracts.V1.Responses;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace ELRDServerAPI.Services
             _db = db;
         }
 
-        public UserResponse AddNewUser(CreateUserRequest u)
+        public async Task<UserResponse> AddNewUserAsync(CreateUserRequest u)
         {
             //Map to DB Object
             User x = new ELRDDataAccessLibrary.Models.User
@@ -30,8 +31,8 @@ namespace ELRDServerAPI.Services
             };
 
             //Save to DB and get ID
-            _db.Users.Add(x);
-            _db.SaveChanges();
+            await _db.Users.AddAsync(x);
+            await _db.SaveChangesAsync();
 
 
             //Map to Response
@@ -47,30 +48,30 @@ namespace ELRDServerAPI.Services
             return response;
         }
 
-        public bool DelteUser(int id)
+        public async Task<bool> DeleteUserAsync(int id)
         {
-            var user = GetUserById(id);
+            var user = await GetUserByIDAsync(id);
 
             if (user == null)
                 return false;
 
             _db.Users.Remove(user);
-            _db.SaveChanges();
+            var deleted = await _db.SaveChangesAsync();
 
-            return true;
+            return deleted > 0;
         }
 
-        public User GetUserById(int id)
+        public async Task<User> GetUserByIDAsync(int id)
         {
-            return _db.Users.FirstOrDefault(x => x.Id == id);
+            return await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public List<User> GetUsers()
+        public async Task<List<User>> GetUsersAsync()
         {
-            return _db.Users.ToList();
+            return await _db.Users.ToListAsync();
         }
 
-        public bool UpdateUser(User userToUpdate)
+        public async Task<bool> UpdateUserAsync(User userToUpdate)
         {
             //var exists = GetUserById(userToUpdate.Id) != null;
             var exists =  _db.Users.Any(c => c.Id == userToUpdate.Id);
@@ -78,10 +79,10 @@ namespace ELRDServerAPI.Services
             if (!exists)
                 return false;
 
-            _db.Users.Update(userToUpdate);
-            _db.SaveChanges();
+             _db.Users.Update(userToUpdate);
+            var updated = await _db.SaveChangesAsync();
 
-            return true;
+            return updated > 0;
 
         }
     }
