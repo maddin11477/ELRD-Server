@@ -10,10 +10,6 @@ Alle APIs sind mit Swagger dokumentiert.
 
 ### User
 ##### [POST]
-  - api/v1/User/Login (aktuell deaktiviert)
-    - Meldet den Benutzer an
-    - Benötigt username und password
-    - Liefert ein JWT Token zurück
   - api/v1/users
     - Legt neuen Nutzer in der Datenbank an
 
@@ -31,3 +27,15 @@ Alle APIs sind mit Swagger dokumentiert.
 #### [DELTE]
   - api/v1/users/&#123;userID&#125;
     - Löscht den Nutzer mit der &#123;userID&#125; aus der Datenbank
+
+
+### Identity
+##### [POST]
+  - api/vi/identity/register/
+    - registriert neuen Benutzer
+    - Benutzername, Passwort, Email
+  - api/vi/identity/login/
+    - Login für username/passwort
+    - Login für email/passwort
+  - api/vi/identity/refresh/
+    - Erneuert den token mit notwendigem refreshtoken
