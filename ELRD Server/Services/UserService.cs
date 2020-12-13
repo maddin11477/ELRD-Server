@@ -3,6 +3,7 @@ using ELRDDataAccessLibrary.Models;
 using ELRDServerAPI.Contracts.V1.Requests;
 using ELRDServerAPI.Contracts.V1.Responses;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace ELRDServerAPI.Services
     public class UserService : IUserService
     {
         private readonly ELRDContext _db;
+        private readonly ILogger<UserService> _logger;
 
-        public UserService(ELRDContext db)
+        public UserService(ILogger<UserService> log, ELRDContext db)
         {
             _db = db;
+            _logger = log;
         }
 
         public async Task<UserResponse> AddNewUserAsync(CreateUserRequest u)

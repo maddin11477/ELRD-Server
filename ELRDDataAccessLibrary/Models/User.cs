@@ -8,10 +8,10 @@ namespace ELRDDataAccessLibrary.Models
     public class User
     {
         public int Id { get; set; }
-        [Required]
+        
         [MaxLength(100)]
         public string Firstname { get; set; }
-        [Required]
+        
         [MaxLength(100)]
         public string Lastname { get; set; }
         [Required]
@@ -20,5 +20,12 @@ namespace ELRDDataAccessLibrary.Models
         [Required]
         [MaxLength(50)]
         public string Password { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string Email { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public ICollection<Role> Roles { get; set; }
     }
 }

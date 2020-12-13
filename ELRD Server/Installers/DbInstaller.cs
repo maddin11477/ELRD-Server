@@ -1,5 +1,6 @@
 ﻿using ELRDDataAccessLibrary.DataAccess;
 using ELRDServerAPI.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,9 @@ namespace ELRDServerAPI.Installers
             {
                 options.UseSqlServer(configuration.GetConnectionString("Default"));
             });
+
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ELRDContext>();
 
             services.AddScoped<IUserService, UserService>();
         }

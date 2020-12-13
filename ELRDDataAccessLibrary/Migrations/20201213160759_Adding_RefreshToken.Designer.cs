@@ -4,14 +4,16 @@ using ELRDDataAccessLibrary.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ELRDDataAccessLibrary.Migrations
 {
     [DbContext(typeof(ELRDContext))]
-    partial class ELRDContextModelSnapshot : ModelSnapshot
+    [Migration("20201213160759_Adding_RefreshToken")]
+    partial class Adding_RefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
