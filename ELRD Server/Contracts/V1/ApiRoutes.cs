@@ -38,7 +38,7 @@ namespace ELRDServerAPI.Contracts.V1
 
         public static class BaseData
         {
-            public const string BaseUnit = Base + "/basedata/baseunit";
+            public const string BaseUnit = Base + "/basedata/baseunits";
 
             public const string SeedBaseUnit = Base + "/basedata/seedbaseunit";
 

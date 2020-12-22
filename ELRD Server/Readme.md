@@ -31,11 +31,18 @@ Alle APIs sind mit Swagger dokumentiert.
 
 ### Identity
 ##### [POST]
-  - api/vi/identity/register/
+  - api/v1/identity/register/
     - registriert neuen Benutzer
     - Benutzername, Passwort, Email
-  - api/vi/identity/login/
+  - api/v1/identity/login/
     - Login für username/passwort
     - Login für email/passwort
-  - api/vi/identity/refresh/
+  - api/v1/identity/refresh/
     - Erneuert den token mit notwendigem refreshtoken
+
+### BaseData
+##### [GET]
+  - api/v1/basedata/baseunits
+    - Gibt alle Fahrzeuge der Stammdaten zurück
+  - api/v1/basedata/seedbaseunit
+    - Fügt ein paar vordefinierte Fahrzeuge in die Datenbank ein
