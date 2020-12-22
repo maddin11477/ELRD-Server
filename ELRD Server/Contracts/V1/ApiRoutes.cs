@@ -35,5 +35,13 @@ namespace ELRDServerAPI.Contracts.V1
 
             public const string Refresh = Base + "/identity/refresh";
         }
+
+        public static class BaseData
+        {
+            public const string BaseUnit = Base + "/basedata/baseunit";
+
+            public const string SeedBaseUnit = Base + "/basedata/seedbaseunit";
+
+        }
     }
 }

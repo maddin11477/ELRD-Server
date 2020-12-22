@@ -12,6 +12,7 @@ namespace ELRDServerAPI.Installers
         {
 
             services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<IBaseDataService, BaseDataService>();
 
             //Adding the API Controller
             services.AddControllers();
