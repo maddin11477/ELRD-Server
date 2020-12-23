@@ -30,17 +30,13 @@ namespace ELRDServerAPI.Controllers.V1
         private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
 
-        private readonly IConfiguration _configuration;
-
-        public UserController(ILogger<UserController> log, IUserService userService, IConfiguration configuration)
+        public UserController(ILogger<UserController> log, IUserService userService)
         {
             _logger = log;
             _userService = userService;
-            _configuration = configuration;
         }
 
         // GET: api/<UserController>
-        
         [HttpGet(ApiRoutes.Users.GetAll)]
         public async Task<IActionResult> GetAll()
         {

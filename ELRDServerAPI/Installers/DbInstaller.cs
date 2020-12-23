@@ -14,7 +14,11 @@ namespace ELRDServerAPI.Installers
             //Add Database Context for accessing the Database
             services.AddDbContext<ELRDContext>(options =>
             {
+#if DEBUG
+                options.UseSqlServer(configuration.GetConnectionString("Local"));
+#else
                 options.UseSqlServer(configuration.GetConnectionString("Default"));
+#endif
             });
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
